@@ -1,3 +1,6 @@
 [submodule "vimfiles/bundle/vim-wordmotion"]
 	path = vimfiles/bundle/vim-wordmotion
 	url = https://github.com/chaoren/vim-wordmotion.git
+[submodule "vimfiles/bundle/vim-colors-solarized"]
+	path = vimfiles/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
