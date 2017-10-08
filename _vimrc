@@ -261,8 +261,8 @@ nnoremap <leader>r :w <cr>
 "" Override default word wrapping for certain filetypes
 :augroup ftype_hardWrap
     autocmd!
-	autocmd Filetype python SetHardWrap(0) <cr>
-	autocmd Filetype mma 	SetHardWrap(0) <cr>
+	autocmd Filetype python :call SetHardWrap(0)
+	autocmd Filetype mma 	:call SetHardWrap(0)
 :augroup END
 
 
