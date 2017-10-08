@@ -117,7 +117,7 @@ function! ToggleHardWrap()
 endfunction
 "}}}
 
-call UpdateHardWordWrap()  " Implement default
+call UpdateHardWrap()  " Implement default
 
 " Mapping to toggle hard word wrapping
 nnoremap <leader><leader>w :call ToggleHardWrap()<cr>:set tw?<cr>
@@ -288,8 +288,8 @@ let g:wordmotion_mappings = {
 \ 'ge' : 'g<leader>e',
 \ 'aw' : 'a<leader>w',
 \ 'iw' : 'i<leader>w'
-"\ '<C-R><C-W>' : '<C-R><M-w>'
 \ }
+"\ '<C-R><C-W>' : '<C-R><M-w>'
 
 
 " Open pdf reader
