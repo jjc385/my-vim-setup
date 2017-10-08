@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='C:\WINDOWS\system32'
+let g:netrw_dirhist_2='C:\Users\Jared\Documents\Dropbox\github\6A\source\include'
+let g:netrw_dirhist_3='C:/Users/Jared/Documents/Dropbox/github/6A/source'
+let g:netrw_dirhist_4='C:/Users/Jared/Documents/Dropbox/github/6A/source/top-level'

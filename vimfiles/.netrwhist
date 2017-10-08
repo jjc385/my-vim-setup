@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='C:\Users\Jared\Documents\google-drive\github\kivy\board-games'
+let g:netrw_dirhist_2='C:\Users\Jared\Documents\google-drive\teaching\1B_17sumC\dis7'
+let g:netrw_dirhist_3='C:\Users\Jared\Documents\google-drive\github\ampGraphTools_jjc385'
