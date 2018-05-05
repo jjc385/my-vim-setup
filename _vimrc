@@ -68,6 +68,17 @@ set mouse=a
 set history=1000
 set undolevels=1000
 
+"" tab completion of filenames, etc
+
+" from https://stackoverflow.com/q/526858/6798063
+"set wildmode=longest,list,full
+set wildmode=longest:list,full
+set wildmenu
+
+
+" Better handling of splits
+set noequalalways
+
 " Tab options
 
 filetype plugin indent on
@@ -87,7 +98,7 @@ set shiftwidth=4
 "hard word wrap at 79 characters
 let mytextwidth = 79	"DO NOT CHAGE this variable to turn word wrapping off;  see below
 
-let hardWordWrapDefaultQ = 1	"Change this line to update hard word wrap default (1 for on; 0 for off)
+let hardWordWrapDefaultQ = 0	"Change this line to update hard word wrap default (1 for on; 0 for off)
 " note:  1 is truthy
 
 let hardWrapQ = hardWordWrapDefaultQ	"DO NOT CHAGE this variable to turn word wrapping off;  see above
@@ -194,6 +205,47 @@ onoremap jk <esc>
 :noremap J <c-d>
 :noremap K <c-u>
 
+
+
+
+" Python specific setup
+
+let python_version_list = [3, 2]
+let python_version_command_list = [ "python", "C:\Program Files (x86)\Python2\python" ]
+
+let python_version_index = 0
+
+let python_version = python_version_list[0]
+let python_version_command = python_version_command_list[0]
+
+function! TogglePythonVersion() 
+	if g:python_version_index+1 < len(g:python_version_list)
+		let g:python_version_index = g:python_version_index+1
+	else
+		let g:python_version_index = 0
+	endif
+
+	let g:python_version = g:python_version_list[g:python_version_index]
+	let g:python_version_command = g:python_version_command_list[g:python_version_index]
+
+	echo "Python version: " g:python_version
+
+endfunction
+
+
+:augroup ftype_python_setup
+    autocmd!
+    autocmd Filetype python setlocal expandtab
+    autocmd Filetype python setlocal softtabstop=4
+
+
+"    autocmd Filetype python setlocal foldmethod=indent
+"    autocmd Filetype python setlocal foldnestmax=2
+    autocmd Filetype python setlocal foldmethod=marker
+:augroup END
+
+
+
 " insert comments specific to filetypes
 :augroup ftype_comments
     autocmd!
@@ -207,9 +259,11 @@ onoremap jk <esc>
     autocmd FileType markdown nnoremap <buffer> <localleader>c 0i[comment]: # ( <esc>A )<esc>j
     autocmd Filetype dosbatch nnoremap <buffer> <localleader>c 0i::<esc>j
     autocmd Filetype mma nnoremap <buffer> <localleader>c <esc>
-    autocmd Filetype mma nnoremap <buffer> <localleader><localleader>x 0i(* <esc>$a *)<esc>j
-    autocmd Filetype mma nnoremap <buffer> <localleader><localleader>c O<esc>0i(* <esc>j
-    autocmd Filetype mma nnoremap <buffer> <localleader><localleader>v o<esc>0i*) <esc>j
+    autocmd Filetype mma nnoremap <buffer> <localleader><localleader>c 0i(* <esc>$a *)<esc>j
+    autocmd Filetype mma nnoremap <buffer> <localleader><localleader>x O<esc>0i(* <esc>j
+    autocmd Filetype mma nnoremap <buffer> <localleader><localleader>v o<esc>0i*)<esc>j
+    autocmd Filetype mma nnoremap <buffer> <localleader><localleader><localleader>x 0i(* <esc>j
+    autocmd Filetype mma nnoremap <buffer> <localleader><localleader><localleader>v $a *)<esc>j
 :augroup END
 "todo:  extend ftype_comments to 
 " (1) have a default
@@ -237,6 +291,7 @@ nnoremap <leader>r :w <cr>
 "" Include full path of file
     autocmd Filetype tex nnoremap <buffer> <leader>e :w <cr> :! pdflatex -output-directory %:p:h %:p <cr>
     autocmd Filetype tex nnoremap <buffer> <leader>r :w <cr> :silent ! start "" pdflatex -output-directory %:p:h %:p <cr>
+    autocmd Filetype tex nnoremap <buffer> <leader><leader>r :w! <cr> :silent ! start "" pdflatex -output-directory %:p:h %:p <cr>
 "    autocmd FileType tex nnoremap <buffer> <leader>v :exec 'silent ! start "" evince ' . expand('%:r') . '.pdf' <cr>
 "    autocmd FileType tex nnoremap <buffer> <leader>v :exec 'silent ! start "" sumatrapdf ' . expand('%:r') . '.pdf' <cr>
     autocmd FileType tex nnoremap <buffer> <leader>v :exec 'silent ! start "" sumatrapdf ' . expand('%:p:r') . '.pdf' <cr>
@@ -244,17 +299,29 @@ nnoremap <leader>r :w <cr>
     " move this later
     autocmd Filetype autohotkey nnoremap <buffer> <leader>e :w <cr> :! autohotkey.exe % <cr>
     autocmd Filetype autohotkey nnoremap <buffer> <leader>r :w <cr> :silent ! start "" autohotkey.exe % <cr>
-    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :! python % <cr>
+    autocmd Filetype autohotkey nnoremap <buffer> <leader><leader>k :w <cr> :silent ! start "" autohotkey.exe % kill <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :! python % <cr>
 "" 	attempt to pipe output into a new buffer
 "    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :tabnew | r ! python % <cr>
-    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! python % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! python % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :tabnew | r ! python_version % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! python_version % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :! python % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! python % <cr>
 " Hack -- use python2 instead of default
-"    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :! "C:\Program Files (x86)\Python2\python" % <cr>
-"    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! "C:\Program Files (x86)\Python2\python" % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :! "C:\Program Files (x86)\python27\python" % <cr>
+"    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! "C:\Program Files (x86)\python27\python" % <cr>
+"
+    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :! "C:\Program Files (x86)\python36-32\python" % <cr>
+    autocmd Filetype python nnoremap <buffer> <leader>r :w <cr> :silent ! "C:\Program Files (x86)\python36-32\python" % <cr>
+
+"    autocmd Filetype python nnoremap <buffer> <leader>e :w <cr> :tabnew | r ! "C:\Program Files (x86)\python36-32\python" % <cr>
+
     autocmd Filetype dosbatch nnoremap <buffer> <leader>e :w <cr> :silent ! start "" % <cr>
     autocmd Filetype markdown nnoremap <buffer> <leader>v :w <cr> :silent ! start "" C:\Users\Jared\programs\McViewer.exe % <cr>
 	autocmd Filetype mma setlocal iskeyword -=_
 "	autocmd Filetype mma setlocal iskeyword -=@
+	autocmd Filetype mma nnoremap <leader><leader>ejl :split C:\Users\Jared\Documents\google-drive\github\mmaLibrary\jjcLib\jjcLib.m<cr>
 :augroup END
 
 
@@ -265,19 +332,9 @@ nnoremap <leader>r :w <cr>
 	autocmd Filetype mma 	:call SetHardWrap(0)
 :augroup END
 
+"" open current file with the default system program
+nnoremap <leader><leader>ss :silent ! start %<cr>
 
-" Python specific setup
-"
-:augroup ftype_python_setup
-    autocmd!
-    autocmd Filetype python setlocal expandtab
-    autocmd Filetype python setlocal softtabstop=4
-
-
-"    autocmd Filetype python setlocal foldmethod=indent
-"    autocmd Filetype python setlocal foldnestmax=2
-    autocmd Filetype python setlocal foldmethod=marker
-:augroup END
 
 """"" vim-wordmotion configuration
 "" don't override default word definitions; rather, insert at least one <leader>
@@ -297,5 +354,8 @@ let g:wordmotion_mappings = {
 
 " Leave at least N+1 lines under curser
 set scrolloff=3
+
+" mapping to find visually selected text
+vnoremap // y/<C-R>"<cr>
 
 

@@ -1,5 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='C:\Users\Jared\Documents\google-drive\github\kivy\board-games'
-let g:netrw_dirhist_2='C:\Users\Jared\Documents\google-drive\teaching\1B_17sumC\dis7'
-let g:netrw_dirhist_3='C:\Users\Jared\Documents\google-drive\github\ampGraphTools_jjc385'
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='C:\Users\Jared\Documents\Dropbox\amplitudes\soft\zvis-old-compare-to-dunbar\math_oneloop\dunbar'
+let g:netrw_dirhist_2='C:\Users\Jared\Documents\finances\taxes\taxes2016\resolving-rejected-CA-return\livechat\ftb-livechat-transcript_20180406-1017_files'
+let g:netrw_dirhist_3='C:/Users/Jared/Documents/finances/taxes/taxes2016/resolving-rejected-CA-return/livechat'
+let g:netrw_dirhist_4='C:\Users\Jared\Documents\Dropbox\amplitudes\soft\output'
+let g:netrw_dirhist_5='C:\Users\Jared\Documents\Dropbox\amplitudes\soft'
+let g:netrw_dirhist_6='C:\\Users\Jared\programs\Vim\vim74'
+let g:netrw_dirhist_7='C:/Users/Jared/Documents/Dropbox/amplitudes'
+let g:netrw_dirhist_8='C:/Users/Jared/Documents/Dropbox/mathematica/unit-testing/Kuba'
