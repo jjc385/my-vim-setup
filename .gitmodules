@@ -7,3 +7,6 @@
 [submodule "vimfiles/bundle/vim-kolor"]
 	path = vimfiles/bundle/vim-kolor
 	url = https://github.com/zeis/vim-kolor
+[submodule "vimfiles/bundle/SimpylFold"]
+	path = vimfiles/bundle/SimpylFold
+	url = https://github.com/tmhedberg/SimpylFold.git
